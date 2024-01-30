@@ -14,24 +14,11 @@ const coinsRequired = {
   penny: 0,
 }
 
-while (input >= coinsValue.quarter) {
-  input = Number((input - coinsValue.quarter).toPrecision(3))
-  coinsRequired.quarter += 1
-}
-
-while (input >= coinsValue.dime) {
-  input = Number((input - coinsValue.dime).toPrecision(3))
-  coinsRequired.dime += 1
-}
-
-while (input >= coinsValue.nickel) {
-  input = Number((input - coinsValue.nickel).toPrecision(3))
-  coinsRequired.nickel += 1
-}
-
-while (input >= coinsValue.penny) {
-  input = Number((input - coinsValue.penny).toPrecision(3))
-  coinsRequired.penny += 1
+for (const [coin, coinValue] of Object.entries(coinsValue)) {
+  while (input >= coinValue) {
+    input = Number((input - coinsValue[coin]).toPrecision(3))
+    coinsRequired[coin] += 1
+  }
 }
 
 console.log(coinsRequired)
