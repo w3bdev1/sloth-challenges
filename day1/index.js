@@ -1,4 +1,19 @@
-const input = 4.99
+try {
+  const input = parseInput()
+  console.log(`Coins required for $${input}:\n`, dollarToCoins(input))
+} catch (error) {
+  console.log(error.message)
+}
+
+function parseInput() {
+  if (process.argv.length < 3) throw new Error("Provide dollar value as first argument")
+
+  const input = Number(process.argv[2])
+  if (isNaN(input)) throw new Error("Provide a valid numeric amount")
+  if (input < 0) throw new Error("Input cannot be negative")
+
+  return input
+}
 
 function dollarToCoins(dollar) {
   const coinsValue = {
@@ -25,6 +40,4 @@ function dollarToCoins(dollar) {
 
   return coinsRequired
 }
-
-console.log(`Coins required for $${input} ->`, dollarToCoins(input))
 
