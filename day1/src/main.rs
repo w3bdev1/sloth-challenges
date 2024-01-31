@@ -7,20 +7,24 @@ fn main() {
     }
 }
 
-fn parse_input() -> Result<usize, String> {
+fn parse_input() -> Result<f32, String> {
     let input = std::env::args().nth(1);
 
     if let Some(n) = input {
-        match n.parse::<usize>() {
-            Ok(number) => return Ok(number),
-            Err(_) => return Err("Provide a valid and positive numeric input".to_string()),
+        match n.parse::<f32>() {
+            Ok(number) => if number < 0 as f32 {
+                Err("Value cannot be negative".to_string())
+            } else {
+                Ok(number)
+            },
+            Err(_) => return Err("Provide a valid numeric input".to_string()),
         }
     } else {
         return Err("Provide dollar value as first argument".to_string())
     }
 }
 
-fn dollar_to_coins(dollar: usize) -> HashMap<&'static str, i32> {
+fn dollar_to_coins(dollar: f32) -> HashMap<&'static str, i32> {
   let coins_value = [
     ("quarter", 0.25),
     ("dime", 0.10),
